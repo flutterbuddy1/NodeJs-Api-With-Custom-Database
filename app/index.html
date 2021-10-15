@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Site</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 id="name"></h1>
+    </div>
+
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th>Uid</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th>Uid</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <script>
+        let table = $('#myTable').DataTable();
+        fetch("http://localhost:5000/users")
+        .then((res)=>res.json())
+        .then((data)=>{
+            for (let i = 0; i < data.length; i++) {
+                table.row.add([
+                    data[i].firstname,
+                    data[i].lastname,
+                    data[i].age,
+                    data[i].uid
+                ]).draw();
+            }
+        }).catch((e)=>{
+            console.log(e);
+        });
+    </script>
+</body>
+</html>
